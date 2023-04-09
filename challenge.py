@@ -20,11 +20,11 @@ class Challenge(QDialog):
     Методы 
     ------
         load_img()
-            Смена картинки на рандомное значение из словаря captcha_pack, 
+            Смена картинки на случайное значение из словаря captcha_pack, 
             смена правильного кода 
         
         process()
-            Процесс решения капчи. В случае правильного ответа. Форма Challenge закрывается, 
+            Процесс решения капчи. Если ответ верный форма Challenge закрывается, 
             иначе блокировка кнопок на 10 секунд, очищение поля ввода 
     '''
     
@@ -35,9 +35,9 @@ class Challenge(QDialog):
         self.ui.btn_reload_img.clicked.connect(self.load_img)
         self.ui.btn_request.clicked.connect(self.process)
         self.captcha_pack = {
-            '4235' : 'C:\\Users\\Ethan\\Desktop\\ld_pp\\resources\\cap_1.png',
-            '3bc4' : 'C:\\Users\\Ethan\\Desktop\\ld_pp\\resources\\cap_2.png',
-            '269e' : 'C:\\Users\\Ethan\\Desktop\\ld_pp\\resources\\cap_3.png'            
+            '4235' : 'resources\\cap_1.png',
+            '3bc4' : 'resources\\cap_2.png',
+            '269e' : 'resources\\cap_3.png'            
         }
         data = random.choice(list(self.captcha_pack.items()))
         self.ui.lab_captcha.setPixmap(QPixmap(data[1]))
