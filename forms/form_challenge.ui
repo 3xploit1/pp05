@@ -7,86 +7,82 @@
     <x>0</x>
     <y>0</y>
     <width>364</width>
-    <height>234</height>
+    <height>318</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>371</width>
-     <height>231</height>
-    </rect>
-   </property>
-   <widget class="QLabel" name="lab_captcha">
-    <property name="geometry">
-     <rect>
-      <x>16</x>
-      <y>22</y>
-      <width>331</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_request">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>180</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ок</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_code_captcha">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>130</y>
-      <width>251</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_reload_img">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>180</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Сменить</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QStatusBar" name="statusbar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>3</width>
-     <height>18</height>
-    </rect>
-   </property>
-  </widget>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../Resources/logo.ico</normaloff>../../Resources/logo.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="lab_captcha">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_code_captcha">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QWidget" name="centralwidget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btn_request">
+          <property name="styleSheet">
+           <string notr="true">QPushButton:hover {
+background-color: rgb(73,140,81);
+}</string>
+          </property>
+          <property name="text">
+           <string>Ок</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_reload_img">
+          <property name="styleSheet">
+           <string notr="true">QPushButton:hover {
+background-color: rgb(73,140,81);
+}</string>
+          </property>
+          <property name="text">
+           <string>Сменить</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_logo">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

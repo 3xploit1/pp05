@@ -38,6 +38,10 @@ class LabIsled(QMainWindow, DataBase):
         self.ui = Ui_MainWindow_laborant_is()
         self.ui.setupUi(self)
         self.setWindowTitle('Лаборант-исследователь')
+        self.setWindowIcon(QIcon('resources\/logo.ico'))
+        pix = QPixmap('resources\/logo.png')
+        self.ui.label_logo.setPixmap(pix)
+        self.ui.label_logo.setScaledContents(True)
         QTimer.singleShot(SESSION_SEC * 1000 , self.close) # 600000
         QTimer.singleShot((SESSION_SEC * 1000 / 2) , self.message)
         self.user = user
@@ -47,13 +51,11 @@ class LabIsled(QMainWindow, DataBase):
     
     def load(self): 
         data = self.get_data_user(self.user)
-        if (len(data) > 2 ): 
+        if (len(data) == 1 ): 
             self.ui.label_name_is.setText(data[0])
-            self.ui.label_surname_is.setText(data[1])
-            self.ui.label_role_is.setText(data[2])
-            pix = QPixmap()
-            if pix.loadFromData(data[3]):
-                self.ui.image_laborant_is.setPixmap(pix)
+            self.ui.label_role_is.setText('Лаборант-исследователь')
+            pix = QPixmap('resources\/laborant_2.png')
+            self.ui.image_laborant_is.setPixmap(pix)
     
     def message(self): 
         QMessageBox.warning(QMessageBox(), 'Информация', f"У вас осталось {(SESSION_SEC / 2)} секунд")

@@ -4,6 +4,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from forms.ui_form_admin import * 
 from database.db import DataBase
+from view_visits import *
 
 
 class Admin(QMainWindow, DataBase): 
@@ -20,24 +21,30 @@ class Admin(QMainWindow, DataBase):
         load()
             Загружает данные пользователя
     '''
-    def __init__(self, user, parent=None):
+    def __init__(self,parent=None):
         super(Admin, self).__init__(parent)
         self.ui = Ui_MainWindow_admin()
         self.ui.setupUi(self)
         self.setWindowTitle('Администратор')
-        self.user = user 
+        self.setWindowIcon(QIcon('resources\/logo.ico'))
+        pix = QPixmap('resources\/logo.png')
+        self.ui.label_logo.setPixmap(pix)
+        self.ui.label_logo.setScaledContents(True)
+        self.ui.btn_view.clicked.connect(self.move_view)
         self.set_connect()
         self.load()
-
+        
     def load(self): 
-        data = self.get_data_user(self.user)
-        if (len(data) > 2 ): 
-            self.ui.label_name_admin.setText(data[0])
-            self.ui.label_surname_admin.setText(data[1])
-            self.ui.label_role_admin.setText(data[2])
-            pix = QPixmap()
-            if pix.loadFromData(data[3]):
-                self.ui.image_laborant_admin.setPixmap(pix)
+        self.ui.label_name_admin.setText('Администратор')
+        self.ui.label_role_admin.setText('Администратор')
+        pix = QPixmap('resources\/Администратор.png')
+        self.ui.image_laborant_admin.setPixmap(pix)
+        self.ui.image_laborant_admin.setScaledContents(True)
+    
+    def move_view(self):
+        view = ViewUsers()
+        view.show()
+        view.exec_()
 
         
 

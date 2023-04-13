@@ -42,13 +42,17 @@ class Dialog(QDialog, DataBase):
         self.ui.setupUi(self)
         self.set_connect()
         self.ui.btn_auth.clicked.connect(self.process_auth)
+        self.setWindowIcon(QIcon('resources\/logo.ico'))
+        pix = QPixmap('resources\/logo.png')
+        self.ui.label_logo.setPixmap(pix)
+        self.ui.label_logo.setScaledContents(True)
 
     def move_laborant(self): 
         self.accept()
         window = LabAssistant(self.ui.line_login.text())
         window.show()
         window.exec_()
-    
+     
     def move_laborant_isled(self): 
         self.accept()
         laborant_isled = LabIsled(self.ui.line_login.text())
@@ -63,7 +67,7 @@ class Dialog(QDialog, DataBase):
     
     def move_admin(self): 
         self.accept()
-        admin = Admin(self.ui.line_login.text())
+        admin = Admin()
         admin.show()
         admin.exec_()
     
@@ -76,16 +80,17 @@ class Dialog(QDialog, DataBase):
         usr_log, usr_pas = self.ui.line_login.text(), self.ui.line_password.text()
         try: 
             if (usr_log != '') and (usr_pas != ''): 
+                if (usr_log == 'admin') and (usr_pas == 'admin'): 
+                    self.move_admin() 
+                
                 data = self.set_auth(usr_log, usr_pas)
                 if (len(data) == 3): 
-                    if (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 'Лаборант' ): 
+                    if (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 3 ): 
                         self.move_laborant()
-                    elif (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 'Лаборант-исследователь' ): 
+                    elif (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 2 ): 
                         self.move_laborant_isled()
-                    elif (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 'Бухгалтер' ): 
+                    elif (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 1 ): 
                         self.move_accountant()
-                    elif (data[0] == usr_log) and (data[1] == usr_pas) and (data[2] == 'Администратор' ): 
-                        self.move_admin() 
             else: 
                 raise TypeError
         except TypeError: 

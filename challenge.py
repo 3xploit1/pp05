@@ -32,6 +32,10 @@ class Challenge(QDialog):
         super(Challenge, self).__init__()
         self.ui = Ui_Main_challenge()
         self.ui.setupUi(self)
+        self.setWindowIcon(QIcon('resources\/logo.ico'))
+        pix = QPixmap('resources\/logo.png')
+        self.ui.label_logo.setPixmap(pix)
+        self.ui.label_logo.setScaledContents(True)
         self.ui.btn_reload_img.clicked.connect(self.load_img)
         self.ui.btn_request.clicked.connect(self.process)
         self.captcha_pack = {

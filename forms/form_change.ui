@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogChange</class>
+ <widget class="QDialog" name="DialogChange">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>648</width>
+    <height>383</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_logo">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_full"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_login"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_pwd"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_socia_sec_number"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_ein"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="len_social_type"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_passport_s"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_passport_n"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_bday"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbox_insurance"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_load">
+       <property name="text">
+        <string>Загрузить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_req_change">
+       <property name="text">
+        <string>ОК</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTableWidget" name="lstView_patients">
+       <property name="minimumSize">
+        <size>
+         <width>450</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

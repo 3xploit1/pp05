@@ -1,4 +1,8 @@
-import sqlite3 
+import configparser
+import psycopg2
+
+config = configparser.ConfigParser()
+config.read('config\/config.ini')
 
 
 class DataBase(): 
@@ -7,8 +11,16 @@ class DataBase():
     '''        
     
     def set_connect(self): 
-        self.connection = sqlite3.connect('database\/blood_service.db')
-        self.cur = self.connection.cursor()
+        self.conn = psycopg2.connect(
+            database=config['database']['dbname'],
+            user=config['database']['user'],
+            password=config['database']['password'],
+            host=config['database']['host'],
+            port=config['database']['port']
+    )
+
+        self.cur = self.conn.cursor()
+    
     
     def set_auth(self, user_login, user_password):
         '''
@@ -16,7 +28,7 @@ class DataBase():
         Возвращает список записей
         '''
         
-        data = self.cur.execute(f"""SELECT login, password, role FROM users" 
+        data = self.cur.execute(f"""SELECT login, password, type FROM users" 
                                 "WHERE login='{user_login}' and password='{user_password}'""") 
 
         data = self.cur.fetchone()
@@ -27,46 +39,130 @@ class DataBase():
         Выполняет запрос на выборку пользователя по его логину
         '''
         
-        data = self.cur.execute(f"""SELECT name, surname, role, image FROM users"
+        data = self.cur.execute(f"""SELECT name FROM users"
                                     "WHERE login='{user}'""")
         data = self.cur.fetchone()
         return data
 
     def add_order(
         self, 
-        code,
-        surname, 
-        name, 
-        middle_name, 
-        service
+        id,
+        barcode, 
+        date, 
+        patient, 
+        id_services
     ):
         '''
-        Выполняет запрос на добавление в таблицу order
+        Выполняет запрос на добавление в таблицу main_order
         '''
-        # code оповещение 
-        self.cur.execute(f"INSERT INTO patient_order (id_order, surname, name, middle_name, service) VALUES ('{code}','{surname}','{name}','{middle_name}','{service}')")
-        self.connection.commit()
+ 
+        self.cur.execute(f"INSERT INTO patient_order (id, barcode, date, patient, id_services) VALUES ('{id}','{barcode}','{date}','{patient}','{id_services}')")
+        self.conn.commit()
 
-    def exist_patient(self, surname, name, middle_name) -> bool:  
-        data = self.cur.execute(f"SELECT name, surname, middle_name FROM patient WHERE name='{name}' and surname='{surname}' and middle_name='{middle_name}'")
+    def exist_patient(self, full, passport_n) -> bool:  
+        data = self.cur.execute(f"SELECT full_n, passport_n FROM patients WHERE full_n='{full}' and passport_n='{passport_n}'")
         data = self.cur.fetchone()
         return True if (data != None) and (len(data) == 3) else False
     
+    def get_name_company(self): 
+        '''
+        Запрос на выборку всех наименований страховых компаний
+        '''
+        data = self.cur.execute(f"SELECT insurance_name FROM insurance_company")
+        data = self.cur.fetchall()
+        return data
+    
+    def get_name_service(self): 
+        '''
+        Запрос на выборку всех названий услуг
+        '''
+        data = self.cur.execute(f"SELECT service_name FROM services")
+        data = self.cur.fetchall()
+        return data
+    
     def add_patient(
         self,
-        name, 
-        surname,
-        middle_name,
-        bday,
-        passport_series, 
-        passport_number,
-        phone,
+        full, 
+        login,
+        pwd,
         email,
-        policy_number,
-        type_policy,
-        name_company
+        social_sec_number, 
+        ein,
+        social_type,
+        phone,
+        passport_s,
+        passport_n,
+        birthdate_timestamp,
+        id_insurance
     ): 
-        self.cur.execute(f"""INSERT INTO patient (name, surname, middle_name, bday, passport_series, passport_number, phone, email, policy_number, type_policy, name_company)
-                            VALUES ('{name}','{surname}','{middle_name}','{bday}','{passport_series}','{passport_number}','{phone}','{email}','{policy_number}','{type_policy}','{name_company}')
+        self.cur.execute(f"""INSERT INTO patients (full_n, login, pwd, email, social_sec_number, ein, social_type, phone, passport_s, passport_n, birthdate_timestamp, id_insurance)
+                            VALUES ('{full}','{login}','{pwd}','{email}','{social_sec_number}','{ein}','{social_type}','{phone}','{passport_s}','{passport_n}','{birthdate_timestamp}','{id_insurance}')
                          """)
-        self.connection.commit()
+        self.conn.commit()
+    
+    def get_id_service(self, service): 
+        data = self.cur.execute(f"SELECT code FROM services WHERE service_name='{service}'")
+        data = self.cur.fetchone()
+        return data 
+    
+    def get_id_company(self, company): 
+        data = self.cur.execute(f"SELECT insurance_company.id FROM insurance_company WHERE insurance_name='{company}'")
+        data = self.cur.fetchone()
+        return data
+
+    def get_name_company_by_id(self, id):
+        data = self.cur.execute(f"SELECT insurance_name FROM insurance_company WHERE id='{id}'")
+        data = self.cur.fetchone()
+        return data
+    
+    def get_last_code(self): 
+        '''
+        Возвращает последний id из таблицы main_order
+        '''
+        data = self.cur.execute(f"SELECT * FROM main_order ORDER BY id DESC LIMIT 1")
+        data = self.cur.fetchone()
+        return data 
+    
+    def get_serv_full(self): 
+        data = self.cur.execute("select (pa.full_n), (serv.service_name), (serv.price) FROM service_rendered se INNER JOIN patients pa ON (se.user_id) = (pa.id) INNER JOIN services serv ON (serv.code) = (se.service)")
+        data = self.cur.fetchall()
+        return data
+
+    def count_by_day(self): 
+        data = self.cur.execute("SELECT date AS date, COUNT(*) AS users_count FROM main_order GROUP BY date ORDER BY date")
+        data = self.cur.fetchall()
+        return data
+
+    def all_patients(self): 
+        data = self.cur.execute("SELECT * FROM patients")
+        data = self.cur.fetchall()
+        return data
+
+    def get_patients(self, id): 
+        data = self.cur.execute(f"SELECT patients.full_n, login, pwd, social_sec_number, ein, social_type, passport_s, passport_n, birthdate_timestamp, id_insurance FROM patients WHERE id='{id}'")
+        data = self.cur.fetchone()
+        return data
+
+    def up_pateints(
+        self,
+        id,
+        full,
+        login,
+        pwd,
+        social_sec_number,
+        ein,
+        social_type,
+        passport_s,
+        passport_n,
+        bday,
+        id_insurance
+    ): 
+        self.cur.execute(
+            f"UPDATE patients SET full_n='{full}', login='{login}', pwd='{pwd}', social_sec_number='{social_sec_number}', ein='{ein}', social_type='{social_type}', passport_s='{passport_s}', passport_n='{passport_n}', birthdate_timestamp='{bday}', id_insurance='{id_insurance}' WHERE id='{id}'"
+        )
+        self.conn.commit()
+    
+    def get_visits(self): 
+        data = self.cur.execute(f"SELECT name, lastenter FROM users")
+        data = self.cur.fetchall()
+        return data
