@@ -45,6 +45,12 @@
       <widget class="QLineEdit" name="le_passport_s"/>
      </item>
      <item>
+      <widget class="QLineEdit" name="le_phone"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_email"/>
+     </item>
+     <item>
       <widget class="QLineEdit" name="le_passport_n"/>
      </item>
      <item>

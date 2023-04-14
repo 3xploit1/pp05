@@ -56,13 +56,18 @@ class DataBase():
         Выполняет запрос на добавление в таблицу main_order
         '''
  
-        self.cur.execute(f"INSERT INTO patient_order (id, barcode, date, patient, id_services) VALUES ('{id}','{barcode}','{date}','{patient}','{id_services}')")
+        self.cur.execute(f"INSERT INTO main_order (id, barcode, date, patient, id_services) VALUES ('{id}','{barcode}','{date}','{patient}','{id_services}')")
         self.conn.commit()
 
     def exist_patient(self, full, passport_n) -> bool:  
         data = self.cur.execute(f"SELECT full_n, passport_n FROM patients WHERE full_n='{full}' and passport_n='{passport_n}'")
         data = self.cur.fetchone()
-        return True if (data != None) and (len(data) == 3) else False
+        return True if (data != None) and (len(data) == 2) else False
+    
+    def get_id_patients(self, full):
+        data = self.cur.execute(f"SELECT id FROM patients WHERE full_n='{full}'")
+        data = self.cur.fetchone()
+        return data 
     
     def get_name_company(self): 
         '''

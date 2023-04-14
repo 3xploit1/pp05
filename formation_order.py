@@ -75,28 +75,30 @@ class FormationOrder(QDialog, DataBase):
         self.service = self.get_id_service(self.ui.cbox_serv.currentText())
         
         # предусмотреть возможность рандомных значений. Реализовать кнопку анализатор 
-        try: 
-            if self.code != '' and self.fio != '' and self.pas_n != '' and self.service != '': 
-                if self.exist_patient(self.fio, self.pas_n) == True: 
-                    self.name_file = self.code + str(self.now.day) + str(self.now.month) + str(self.now.year) + str(uniq_code := random.randint(1000000, 9999999))
-                    self.barcode = f"{self.code} {self.now.day} {self.now.month} {self.now.year} {str(uniq_code)}"
-                    self.add_order(self.code, self.barcode, str(self.now.day) + str(self.now.month) + str(self.now.year), self.fio, self.pas_n, self.service)
-                    self.make_file_barcode() 
-                    self.make_file_order() 
-                    QMessageBox.information(QMessageBox(), 'Успешно',f'Штрихкод: {self.barcode}')
-                    self.accept()
-                else: 
-                    self.ui.le_code.clear()
-                    self.ui.le_fio.clear()
-                    self.ui.li_pas_num.clear()
-                    QMessageBox.warning(QMessageBox(), 'Ошибка','Пользователя не существует')
-                    order = AddPatient()
-                    order.show()
-                    order.exec_()
+        # try: 
+        if self.code != '' and self.fio != '' and self.pas_n != '' and self.service != '': 
+            if self.exist_patient(self.fio, self.pas_n) == True: 
+                self.name_file = self.code + str(self.now.day) + str(self.now.month) + str(self.now.year) + str(uniq_code := random.randint(1000000, 9999999))
+                self.barcode = f"{self.code} {self.now.day} {self.now.month} {self.now.year} {str(uniq_code)}"
+                req = self.get_id_patients(self.fio)
+                # int((self.barcode).replace(' ', '')[-5:] костыль, служит как сам факт занесения в БД
+                self.add_order(self.code, int((self.barcode).replace(' ', '')[-5:]), str(self.now.day) + str(self.now.month) + str(self.now.year), req[0], self.service[0])
+                self.make_file_barcode() 
+                self.make_file_order() 
+                QMessageBox.information(QMessageBox(), 'Успешно',f'Штрихкод: {self.barcode}')
+                self.accept()
+            else: 
+                self.ui.le_code.clear()
+                self.ui.le_fio.clear()
+                self.ui.li_pas_num.clear()
+                QMessageBox.warning(QMessageBox(), 'Ошибка','Пользователя не существует')
+                order = AddPatient()
+                order.show()
+                order.exec_()
         #     else: 
         #         raise TypeError
-        except Exception: 
-            QMessageBox.warning(QMessageBox(), 'Ошибка',f'{Exception}')
+        # except Exception: 
+        #     QMessageBox.warning(QMessageBox(), 'Ошибка',f'{Exception}')
     
     def make_file_barcode(self): 
         with open(name_file_bacode := 'storage\/' + self.name_file + '.txt', 'w') as file: 

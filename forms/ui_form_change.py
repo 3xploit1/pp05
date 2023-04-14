@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_changeymnGRm.ui'
+## Form generated from reading UI file 'form_changeVJPDkn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -61,6 +61,16 @@ class Ui_DialogChange(object):
         self.le_passport_s.setObjectName(u"le_passport_s")
 
         self.verticalLayout.addWidget(self.le_passport_s)
+
+        self.le_phone = QLineEdit(DialogChange)
+        self.le_phone.setObjectName(u"le_phone")
+
+        self.verticalLayout.addWidget(self.le_phone)
+
+        self.le_email = QLineEdit(DialogChange)
+        self.le_email.setObjectName(u"le_email")
+
+        self.verticalLayout.addWidget(self.le_email)
 
         self.le_passport_n = QLineEdit(DialogChange)
         self.le_passport_n.setObjectName(u"le_passport_n")
