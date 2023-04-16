@@ -11,31 +11,7 @@ from challenge import *
 from database.db import DataBase
 
 
-class Dialog(QDialog, DataBase):
-    '''
-    Класс Dialog описывает логику работы авторизации 
-    
-    Методы 
-    ------
-        move_laborant()
-            Создание экземпляра класса LabAssistant, описывающего логику работы лаборанта
-    
-        move_laborant_isled()
-            Создание экземпляра класса LabIsled, описывающего логику работы лаборанта-исследователя
-       
-       move_accountant()
-            Создание экземпляра класса Accountant, описывающего логику работы бухгалтера
-       
-       move_admin()
-            Создание экземпляра класса Accountant, описывающего логику работы бухгалтера
-    
-        captcha()
-            Создание экземпляра класса Challenge, описывающего логику работы капчи
-            
-        process_auth()
-            Процесс авторизации
-    '''
-    
+class Dialog(QDialog, DataBase):    
     def __init__(self):
         super(Dialog, self).__init__()
         self.ui = Ui_Dialog() 

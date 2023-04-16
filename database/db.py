@@ -144,7 +144,7 @@ class DataBase():
         return data
 
     def get_patients(self, id): 
-        data = self.cur.execute(f"SELECT patients.full_n, login, pwd, social_sec_number, ein, social_type, passport_s, passport_n, birthdate_timestamp, id_insurance FROM patients WHERE id='{id}'")
+        data = self.cur.execute(f"SELECT patients.full_n, login, pwd, email, phone, social_sec_number, ein, social_type, passport_s, passport_n, birthdate_timestamp, id_insurance FROM patients WHERE id='{id}'")
         data = self.cur.fetchone()
         return data
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_add_patientnFzAEP.ui'
+## Form generated from reading UI file 'form_add_patientqFXEAh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -17,7 +17,7 @@ class Ui_DialogAddPatient(object):
     def setupUi(self, DialogAddPatient):
         if not DialogAddPatient.objectName():
             DialogAddPatient.setObjectName(u"DialogAddPatient")
-        DialogAddPatient.resize(235, 507)
+        DialogAddPatient.resize(235, 515)
         icon = QIcon()
         icon.addFile(u"../../Resources/logo.ico", QSize(), QIcon.Normal, QIcon.Off)
         DialogAddPatient.setWindowIcon(icon)
@@ -138,7 +138,7 @@ class Ui_DialogAddPatient(object):
         self.le_b_day.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u0414\u0430\u0442\u0430 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f", None))
         self.le_passport_series.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u0421\u0435\u0440\u0438\u044f \u043f\u0430\u0441\u043f\u043e\u0440\u0442\u0430", None))
         self.le_passport_number.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u041d\u043e\u043c\u0435\u0440 \u043f\u0430\u0441\u043f\u043e\u0440\u0442\u0430", None))
-        self.le_ein.setPlaceholderText("")
+        self.le_ein.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"ein", None))
         self.le_policy_number.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043e\u0433\u043e \u043f\u043e\u043b\u0438\u0441\u0430", None))
         self.cbox_type_policy.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u0422\u0438\u043f \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043e\u0433\u043e \u043f\u043e\u043b\u0438\u0441\u0430", None))
         self.le_phone.setPlaceholderText(QCoreApplication.translate("DialogAddPatient", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))

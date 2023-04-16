@@ -37,10 +37,13 @@ class AddPatient(QDialog, DataBase):
             'oms',
             'dms',
         ]
-        
-        self.ui.cbox_name_company.addItems(self.get_name_company())
         self.ui.cbox_type_policy.addItems(type_policy)
+        
+        names = self.get_name_company()
+        for name in names:
+            self.ui.cbox_name_company.addItem(name[0])
             
+                
     def make_patient(self): 
         full = self.ui.le_fio.text()
         login = self.ui.le_login.text()
@@ -53,7 +56,8 @@ class AddPatient(QDialog, DataBase):
         passport_s = self.ui.le_passport_series.text()
         passport_n = self.ui.le_passport_number.text()
         birthdate_timestamp = self.ui.le_b_day.text()
-        id_insurance = self.get_id_company(self.ui.cbox_name_company.currentText())
+        id_ins = self.get_id_company(self.ui.cbox_name_company.currentText())
+        id_insurance = id_ins[0]
         
         try: 
             if (full != '' and login != '' and pwd != '' and 

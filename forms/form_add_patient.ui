@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>235</width>
-    <height>507</height>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,7 +89,7 @@
      <item>
       <widget class="QLineEdit" name="le_ein">
        <property name="placeholderText">
-        <string/>
+        <string>ein</string>
        </property>
       </widget>
      </item>
